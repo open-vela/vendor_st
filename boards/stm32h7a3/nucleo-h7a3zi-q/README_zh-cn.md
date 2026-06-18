@@ -280,26 +280,15 @@ cp defconfig \
 
 ## 已知限制
 
-1. **最终 hybrid m2-bsp 固件已通过 build 验证，但还没在硬件上端到端
-   跑通** —— 测试板在 PWR/FPU/HSE 真因调试期间累积了约 20+ 次烧录，
-   进入 SWD 能连但用户代码跑飞的状态，匹配
-   [ST 论坛 mvo 案例 `tid 898267`](https://community.st.com/t5/stm32-mcus-products/stm32h7a3lih6q-swd-permanently-unresponsive-after-20-flash/td-p/898267)。
-   ST 已知悉，正在协调换板。三个 fix 本身已通过 brick 前的硬件结果
-   单独验证（NSH banner、9 项 kernel xTS PASS、m2 demo 跑通），
-   后续在新板上的端到端验证由 openspec change `open-h7a3-hybrid-hw-verify`
-   跟踪。
-2. **无以太网** —— 该型号硅片不带以太网 MAC，需要以太网请用
+1. **无以太网** —— 该型号硅片不带以太网 MAC，需要以太网请用
    H743/H747/H753。
-3. **无 CRYP / 硬件 AES** —— 该型号硅片不带硬件加密加速器，软件
+2. **无 CRYP / 硬件 AES** —— 该型号硅片不带硬件加密加速器，软件
    AES（mbedTLS）可用。
-4. **USB 仅 OTG-HS-as-FS** —— H7A3 有 OTG_HS 但只引出 FS PHY 的
+3. **USB 仅 OTG-HS-as-FS** —— H7A3 有 OTG_HS 但只引出 FS PHY 的
    PA11/PA12（无 HS PHY 引脚）。`m2-bsp` defconfig 默认不开 USB，
    需要时手动 enable。
-5. **无 SDMMC** —— 该型号硅片不带 SDMMC 外设，需要 SD 卡只能走
+4. **无 SDMMC** —— 该型号硅片不带 SDMMC 外设，需要 SD 卡只能走
    SPI 模式驱动。
-6. **TIM2 oneshot** 有已知 crash，已调查但尚未修复，由 openspec
-   change `add-stm32h7a3-oneshot-real-fix`（BLOCKED-ON-HARDWARE）
-   跟踪。
 
 ## 许可协议
 
