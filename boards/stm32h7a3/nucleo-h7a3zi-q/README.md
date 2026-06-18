@@ -292,27 +292,15 @@ architecture rationale and verification status.
 
 ## Known Limitations
 
-1. **Final hybrid m2-bsp firmware is build-verified, not yet
-   hardware-verified end-to-end** on the boss's specific test board —
-   the original test board accumulated silicon damage during ~20+ flash
-   cycles of PWR/FPU/HSE root-cause debugging and entered an
-   unresponsive state matching the [ST forum mvo case `tid 898267`](https://community.st.com/t5/stm32-mcus-products/stm32h7a3lih6q-swd-permanently-unresponsive-after-20-flash/td-p/898267).
-   ST has been informed and asked for a replacement. The fixes
-   themselves are individually validated against pre-brick hardware
-   results (NSH banner, 9 kernel xTS PASS, m2 demo working). Tracked by
-   openspec change `open-h7a3-hybrid-hw-verify`.
-2. **No Ethernet** — silicon variant does not include the Ethernet MAC.
+1. **No Ethernet** — silicon variant does not include the Ethernet MAC.
    For Ethernet-capable H7, use H743 / H747 / H753 instead.
-3. **No CRYP / hardware AES** — silicon variant does not include the
+2. **No CRYP / hardware AES** — silicon variant does not include the
    crypto accelerator. Software AES via mbedTLS works.
-4. **USB OTG-HS-as-FS only** — the H7A3 has OTG_HS but with the FS PHY
+3. **USB OTG-HS-as-FS only** — the H7A3 has OTG_HS but with the FS PHY
    on PA11/PA12 only (no HS PHY pin). The `m2-bsp` defconfig keeps USB
    disabled; enable manually if needed.
-5. **No SDMMC** — silicon variant does not include the SDMMC
+4. **No SDMMC** — silicon variant does not include the SDMMC
    peripheral. SD card support requires SPI-mode driver if needed.
-6. **TIM2 oneshot** has a known crash that was investigated but not
-   yet fixed; tracked by openspec change `add-stm32h7a3-oneshot-real-fix`
-   (BLOCKED-ON-HARDWARE).
 
 ## License
 
